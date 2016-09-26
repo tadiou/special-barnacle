@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spellCheck.Data.ComparedWord;
-import com.spellCheck.Data.LocalDictionary;
 import com.spellCheck.Data.StringComparative;
 import com.spellCheck.Data.Suggestion;
+import com.spellCheck.Repository.DictionaryRepository;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -24,6 +23,9 @@ public class SpellCheckService {
 
 	private static final double distanceThreshold = 0.95;
 
+	@Autowired
+	private DictionaryRepository dictionaryRepository;
+	
     /**
      * So, given our stringComparative object, which we procure from */
     public List<ComparedWord> checkString(StringComparative stringComparative) {
@@ -42,11 +44,11 @@ public class SpellCheckService {
 
     	comparison.setCorrect(false);
 
-        for(String dictionaryWord: LocalDictionary.words()) {
+        for(String dictionaryWord: dictionaryRepository.getWords()) {
     		if(word.equals(dictionaryWord)){
     			comparison.setCorrect(true);
     		} else if(suggest)  {
-                Map<String, Double> recommended = comparison.getRecommended();
+                HashMap<String, Double> recommended = comparison.getRecommended();
     			Suggestion suggestion = suggest(word, dictionaryWord);
     			if(suggestion != null) {
         			recommended.put(suggestion.getDictionaryWord(), suggestion.getDistance());

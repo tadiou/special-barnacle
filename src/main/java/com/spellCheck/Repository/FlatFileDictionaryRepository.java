@@ -1,4 +1,4 @@
-package com.spellCheck.Data;
+package com.spellCheck.Repository;
 
 
 import java.io.IOException;
@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public final class LocalDictionary {
+public final class FlatFileDictionaryRepository implements DictionaryRepository {
 
-  private static Logger logger = LoggerFactory.getLogger(LocalDictionary.class.getName());
+  private static Logger logger = LoggerFactory.getLogger(FlatFileDictionaryRepository.class.getName());
 
   /*
    * If I was fancy here, I could do some of that fun localization stuff here for dictionaries based on request
@@ -34,7 +34,7 @@ public final class LocalDictionary {
    */
 
   // @Cacheable(value = "words")
-  public static List<String> words() {
+  public List<String> getWords() {
       List<String> words = new ArrayList<>();
 
       /*

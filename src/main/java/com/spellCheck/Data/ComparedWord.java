@@ -1,6 +1,6 @@
 package com.spellCheck.Data;
 
-import java.util.Map;
+import java.util.HashMap;
 
 /**
  *
@@ -16,7 +16,7 @@ public class ComparedWord {
 
   private Boolean correct;
 
-  private Map<String, Double> recommended;
+  private HashMap<String, Double> recommended;
 
   public String getWord() {
       return word;
@@ -34,11 +34,11 @@ public class ComparedWord {
       this.correct = correct;
   }
 
-  public Map<String, Double> getRecommended() {
+  public HashMap<String, Double> getRecommended() {
 	  return recommended;
   }
 
-  public void setRecommended(Map<String, Double> recommended) {
+  public void setRecommended(HashMap<String, Double> recommended) {
 	  this.recommended = recommended;
   } 
 }
